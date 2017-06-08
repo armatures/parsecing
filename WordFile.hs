@@ -13,6 +13,9 @@ import FunctionsAndTypesForParsing
 data SpelledWord = SpelledWord String String
     deriving (Eq,Show)
 
+dictionaryParser :: Parser [ SpelledWord ]
+dictionaryParser = many1 wordLine
+
 wordLine :: Parser SpelledWord
 wordLine =
     try withComment <|> wordParser
@@ -26,10 +29,18 @@ withComment = do
 
 wordParser :: Parser SpelledWord
 wordParser = do
-    spelling <- many1 $ lower
+    spelling <- spellingParser
     string " "
-    pronounciation <- many1 $ upper
+    pronounciation <- pronounciationParser
     return (SpelledWord spelling pronounciation)
+
+spellingParser =
+    many1 $ noneOf "ABCDEFGHIJKLMNOPQRSTUVWXYZ "
+
+pronounciationParser =
+    many1 $ lexeme $ ( upper <|> digit )
+
+
 
 lexeme :: Parser a -> Parser a
 lexeme p = do

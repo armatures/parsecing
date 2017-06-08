@@ -38,5 +38,6 @@ tests =
     [ ( parseWithEof wordLine "yow CHOW" ),
         ( parseWithEof wordLine "yow CHOW #" ),
         ( parseWithEof wordLine "yow CHOW # comment" ),
+        ( parseWithEof wordLine "yow CH EW2 CH OW1 # real phonemes" ),
         ( parseWithEof wordLine "yow CHOW # comment'with_weird\" characters" )
     ]
