@@ -2,6 +2,7 @@ import WordFile
 import Test.QuickCheck
 import FunctionsAndTypesForParsing (parseWithEof)
 import Text.Parsec.String (Parser)
+import Text.Parsec (ParseError)
 -- import Text.Parsec.String.Char (anyChar)
 -- import Text.Parsec.String.Char
 -- import FunctionsAndTypesForParsing (regularParse, parseWithEof, parseWithLeftOver)
@@ -31,3 +32,11 @@ instance Arbitrary UpperString where
 
 prop_lower_then_upper (LowerString ls) (UpperString us) =
     parseWithEof wordLine ( ls ++ " " ++ us ) == Right ( SpelledWord ls us )
+
+tests:: [ Either ParseError SpelledWord ]
+tests =
+    [ ( parseWithEof wordLine "yow CHOW" ),
+        ( parseWithEof wordLine "yow CHOW #" ),
+        ( parseWithEof wordLine "yow CHOW # comment" ),
+        ( parseWithEof wordLine "yow CHOW # comment'with_weird\" characters" )
+    ]
