@@ -3,6 +3,7 @@ import Test.QuickCheck
 import FunctionsAndTypesForParsing (parseWithEof)
 import Text.Parsec.String (Parser)
 import Text.Parsec (ParseError)
+import Models (SpelledWord(..), Phoneme)
 -- import Text.Parsec.String.Char (anyChar)
 -- import Text.Parsec.String.Char
 -- import FunctionsAndTypesForParsing (regularParse, parseWithEof, parseWithLeftOver)
@@ -30,14 +31,11 @@ instance Arbitrary UpperString where
     arbitrary = UpperString <$> listOf1 upperChar
 
 
-prop_lower_then_upper (LowerString ls) (UpperString us) =
-    parseWithEof wordLine ( ls ++ " " ++ us ) == Right ( SpelledWord ls us )
-
 tests:: [ Either ParseError SpelledWord ]
 tests =
-    [ ( parseWithEof wordLine "yow CHOW" ),
-        ( parseWithEof wordLine "yow CHOW #" ),
-        ( parseWithEof wordLine "yow CHOW # comment" ),
-        ( parseWithEof wordLine "yow CH EW2 CH OW1 # real phonemes" ),
-        ( parseWithEof wordLine "yow CHOW # comment'with_weird\" characters" )
+    [ ( parseWithEof wordLine "yow CH OW" ),
+        ( parseWithEof wordLine "yow Y OW #" ),
+        ( parseWithEof wordLine "yow Y OW # comment" ),
+        ( parseWithEof wordLine "yew-chow Y UW2 CH OW1 # dash in spelling" ),
+        ( parseWithEof wordLine "yow CH OW # comment'with_weird\" characters" )
     ]
