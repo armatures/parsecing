@@ -39,101 +39,90 @@ pronounciationParser :: Parser [Phoneme]
 pronounciationParser =
     many1 $ lexeme $ phonemeParser
 
+    -- 1 877 444 6777
 phonemeParser :: Parser Phoneme
-phonemeParser = do
-    phoneme <- parsePhone
-    return ( fromString phoneme )
-
---horrible function that doesn't handle error case
-fromString :: String -> Phoneme
-fromString s =
-    case s of
-      "AA" -> AA EmpNone
-      "AA0" -> AA Emp0
-      "AA1" -> AA Emp1
-      "AA2" -> AA Emp2
-      "AE" -> AE EmpNone
-      "AE0" -> AE Emp0
-      "AE1" -> AE Emp1
-      "AE2" -> AE Emp2
-      "AH" -> AH EmpNone
-      "AH0" -> AH Emp0
-      "AH1" -> AH Emp1
-      "AH2" -> AH Emp2
-      "AO" -> AO EmpNone
-      "AO0" -> AO Emp0
-      "AO1" -> AO Emp1
-      "AO2" -> AO Emp2
-      "AW" -> AW EmpNone
-      "AW0" -> AW Emp0
-      "AW1" -> AW Emp1
-      "AW2" -> AW Emp2
-      "AY" -> AY EmpNone
-      "AY0" -> AY Emp0
-      "AY1" -> AY Emp1
-      "AY2" -> AY Emp2
-      "B" -> B
-      "CH" -> CH
-      "DH" -> DH
-      "EH" -> EH EmpNone
-      "EH0" -> EH Emp0
-      "EH1" -> EH Emp1
-      "EH2" -> EH Emp2
-      "ER" -> ER EmpNone
-      "ER0" -> ER Emp0
-      "ER1" -> ER Emp1
-      "ER2" -> ER Emp2
-      "EY" -> EY EmpNone
-      "EY0" -> EY Emp0
-      "EY1" -> EY Emp1
-      "EY2" -> EY Emp2
-      "F" -> F
-      "G" -> G
-      "IH" -> IH EmpNone
-      "IH0" -> IH Emp0
-      "IH1" -> IH Emp1
-      "IH2" -> IH Emp2
-      "IY" -> IY EmpNone
-      "IY0" -> IY Emp0
-      "IY1" -> IY Emp1
-      "IY2" -> IY Emp2
-      "JH" -> JH
-      "K" -> K
-      "L" -> L
-      "N" -> N
-      "NG" -> NG
-      "OW" -> OW EmpNone
-      "OW0" -> OW Emp0
-      "OW1" -> OW Emp1
-      "OW2" -> OW Emp2
-      "OY" -> OY EmpNone
-      "OY0" -> OY Emp0
-      "OY1" -> OY Emp1
-      "OY2" -> OY Emp2
-      "P" -> P
-      "R" -> R
-      "S" -> S
-      "SH" -> SH
-      "T" -> T
-      "TH" -> TH
-      "UH" -> UH EmpNone
-      "UH0" -> UH Emp0
-      "UH1" -> UH Emp1
-      "UH2" -> UH Emp2
-      "UW" -> UW EmpNone
-      "UW0" -> UW Emp0
-      "UW1" -> UW Emp1
-      "UW2" -> UW Emp2
-      "V" -> V
-      "W" -> W
-      "Y" -> Y
-      "Z" -> Z
-      "ZH" -> ZH
-      _ -> Z
-
-parsePhone :: Parser String
-parsePhone =
-    many1 ( digit <|> upper )
+phonemeParser =
+             try ( string "AA0" >> return ( AA Emp0 ))
+         <|> try ( string "AA" >> return ( AA EmpNone ))
+         <|> try ( string "AA1" >> return ( AA Emp1 ))
+         <|> try ( string "AA2" >> return ( AA Emp2 ))
+         <|> try ( string "AE0" >> return ( AE Emp0 ))
+         <|> try ( string "AE1" >> return ( AE Emp1 ))
+         <|> try ( string "AE2" >> return ( AE Emp2 ))
+         <|> try ( string "AE" >> return ( AE EmpNone ))
+         <|> try ( string "AH0" >> return ( AH Emp0 ))
+         <|> try ( string "AH1" >> return ( AH Emp1 ))
+         <|> try ( string "AH2" >> return ( AH Emp2 ))
+         <|> try ( string "AH" >> return ( AH EmpNone ))
+         <|> try ( string "AO0" >> return ( AO Emp0 ))
+         <|> try ( string "AO1" >> return ( AO Emp1 ))
+         <|> try ( string "AO2" >> return ( AO Emp2 ))
+         <|> try ( string "AO" >> return ( AO EmpNone ))
+         <|> try ( string "AW0" >> return ( AW Emp0 ))
+         <|> try ( string "AW1" >> return ( AW Emp1 ))
+         <|> try ( string "AW2" >> return ( AW Emp2 ))
+         <|> try ( string "AW" >> return ( AW EmpNone ))
+         <|> try ( string "AY0" >> return ( AY Emp0 ))
+         <|> try ( string "AY1" >> return ( AY Emp1 ))
+         <|> try ( string "AY2" >> return ( AY Emp2 ))
+         <|> try ( string "AY" >> return ( AY EmpNone ))
+         <|> try ( string "B" >> return B )
+         <|> try ( string "CH" >> return CH )
+         <|> try ( string "DH" >> return DH )
+         <|> try ( string "EH0" >> return ( EH Emp0 ))
+         <|> try ( string "EH1" >> return ( EH Emp1 ))
+         <|> try ( string "EH2" >> return ( EH Emp2 ))
+         <|> try ( string "EH" >> return ( EH EmpNone ))
+         <|> try ( string "ER0" >> return ( ER Emp0 ))
+         <|> try ( string "ER1" >> return ( ER Emp1 ))
+         <|> try ( string "ER2" >> return ( ER Emp2 ))
+         <|> try ( string "ER" >> return ( ER EmpNone ))
+         <|> try ( string "EY0" >> return ( EY Emp0 ))
+         <|> try ( string "EY1" >> return ( EY Emp1 ))
+         <|> try ( string "EY2" >> return ( EY Emp2 ))
+         <|> try ( string "EY" >> return ( EY EmpNone ))
+         <|> try ( string "F" >> return F )
+         <|> try ( string "G" >> return G )
+         <|> try ( string "IH0" >> return ( IH Emp0 ))
+         <|> try ( string "IH1" >> return ( IH Emp1 ))
+         <|> try ( string "IH2" >> return ( IH Emp2 ))
+         <|> try ( string "IH" >> return ( IH EmpNone ))
+         <|> try ( string "IY0" >> return ( IY Emp0 ))
+         <|> try ( string "IY1" >> return ( IY Emp1 ))
+         <|> try ( string "IY2" >> return ( IY Emp2 ))
+         <|> try ( string "IY" >> return ( IY EmpNone ))
+         <|> try ( string "JH" >> return JH )
+         <|> try ( string "K" >> return K )
+         <|> try ( string "L" >> return L )
+         <|> try ( string "N" >> return N )
+         <|> try ( string "NG" >> return NG )
+         <|> try ( string "OW0" >> return ( OW Emp0 ))
+         <|> try ( string "OW1" >> return ( OW Emp1 ))
+         <|> try ( string "OW2" >> return ( OW Emp2 ))
+         <|> try ( string "OW" >> return ( OW EmpNone ))
+         <|> try ( string "OY0" >> return ( OY Emp0 ))
+         <|> try ( string "OY1" >> return ( OY Emp1 ))
+         <|> try ( string "OY2" >> return ( OY Emp2 ))
+         <|> try ( string "OY" >> return ( OY EmpNone ))
+         <|> try ( string "P" >> return P )
+         <|> try ( string "R" >> return R )
+         <|> try ( string "S" >> return S )
+         <|> try ( string "SH" >> return SH )
+         <|> try ( string "T" >> return T )
+         <|> try ( string "TH" >> return TH )
+         <|> try ( string "UH0" >> return ( UH Emp0 ))
+         <|> try ( string "UH1" >> return ( UH Emp1 ))
+         <|> try ( string "UH2" >> return ( UH Emp2 ))
+         <|> try ( string "UH" >> return ( UH EmpNone ))
+         <|> try ( string "UW0" >> return ( UW Emp0 ))
+         <|> try ( string "UW1" >> return ( UW Emp1 ))
+         <|> try ( string "UW2" >> return ( UW ( Emp2 ) ))
+         <|> try ( string "UW" >> return ( UW EmpNone ))
+         <|> try ( string "V" >> return V )
+         <|> try ( string "W" >> return W )
+         <|> try ( string "Y" >> return Y )
+         <|> try ( string "Z" >> return Z )
+         <|> try ( string "ZH" >> return ZH )
 
 lexeme :: Parser a -> Parser a
 lexeme p = do
