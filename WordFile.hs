@@ -9,7 +9,7 @@ import Control.Applicative ((<|>), many)
 import Control.Monad (void)
 import Data.Char (isLetter, isDigit)
 import FunctionsAndTypesForParsing
-import Models (SpelledWord(..), Phoneme(..))
+import Models (SpelledWord(..), Phoneme(..), Emphasis(..))
 
 dictionaryParser :: Parser [ SpelledWord ]
 dictionaryParser = many1 wordLine
@@ -48,82 +48,82 @@ phonemeParser = do
 fromString :: String -> Phoneme
 fromString s =
     case s of
-      "AA" -> AA
-      "AA0" -> AA0
-      "AA1" -> AA1
-      "AA2" -> AA2
-      "AE" -> AE
-      "AE0" -> AE0
-      "AE1" -> AE1
-      "AE2" -> AE2
-      "AH" -> AH
-      "AH0" -> AH0
-      "AH1" -> AH1
-      "AH2" -> AH2
-      "AO" -> AO
-      "AO0" -> AO0
-      "AO1" -> AO1
-      "AO2" -> AO2
-      "AW" -> AW
-      "AW0" -> AW0
-      "AW1" -> AW1
-      "AW2" -> AW2
-      "AY" -> AY
-      "AY0" -> AY0
-      "AY1" -> AY1
-      "AY2" -> AY2
+      "AA" -> AA EmpNone
+      "AA0" -> AA Emp0
+      "AA1" -> AA Emp1
+      "AA2" -> AA Emp2
+      "AE" -> AE EmpNone
+      "AE0" -> AE Emp0
+      "AE1" -> AE Emp1
+      "AE2" -> AE Emp2
+      "AH" -> AH EmpNone
+      "AH0" -> AH Emp0
+      "AH1" -> AH Emp1
+      "AH2" -> AH Emp2
+      "AO" -> AO EmpNone
+      "AO0" -> AO Emp0
+      "AO1" -> AO Emp1
+      "AO2" -> AO Emp2
+      "AW" -> AW EmpNone
+      "AW0" -> AW Emp0
+      "AW1" -> AW Emp1
+      "AW2" -> AW Emp2
+      "AY" -> AY EmpNone
+      "AY0" -> AY Emp0
+      "AY1" -> AY Emp1
+      "AY2" -> AY Emp2
       "B" -> B
       "CH" -> CH
       "DH" -> DH
-      "EH" -> EH
-      "EH0" -> EH0
-      "EH1" -> EH1
-      "EH2" -> EH2
-      "ER" -> ER
-      "ER0" -> ER0
-      "ER1" -> ER1
-      "ER2" -> ER2
-      "EY" -> EY
-      "EY0" -> EY0
-      "EY1" -> EY1
-      "EY2" -> EY2
+      "EH" -> EH EmpNone
+      "EH0" -> EH Emp0
+      "EH1" -> EH Emp1
+      "EH2" -> EH Emp2
+      "ER" -> ER EmpNone
+      "ER0" -> ER Emp0
+      "ER1" -> ER Emp1
+      "ER2" -> ER Emp2
+      "EY" -> EY EmpNone
+      "EY0" -> EY Emp0
+      "EY1" -> EY Emp1
+      "EY2" -> EY Emp2
       "F" -> F
       "G" -> G
-      "IH" -> IH
-      "IH0" -> IH0
-      "IH1" -> IH1
-      "IH2" -> IH2
-      "IY" -> IY
-      "IY0" -> IY0
-      "IY1" -> IY1
-      "IY2" -> IY2
+      "IH" -> IH EmpNone
+      "IH0" -> IH Emp0
+      "IH1" -> IH Emp1
+      "IH2" -> IH Emp2
+      "IY" -> IY EmpNone
+      "IY0" -> IY Emp0
+      "IY1" -> IY Emp1
+      "IY2" -> IY Emp2
       "JH" -> JH
       "K" -> K
       "L" -> L
       "N" -> N
       "NG" -> NG
-      "OW" -> OW
-      "OW0" -> OW0
-      "OW1" -> OW1
-      "OW2" -> OW2
-      "OY" -> OY
-      "OY0" -> OY0
-      "OY1" -> OY1
-      "OY2" -> OY2
+      "OW" -> OW EmpNone
+      "OW0" -> OW Emp0
+      "OW1" -> OW Emp1
+      "OW2" -> OW Emp2
+      "OY" -> OY EmpNone
+      "OY0" -> OY Emp0
+      "OY1" -> OY Emp1
+      "OY2" -> OY Emp2
       "P" -> P
       "R" -> R
       "S" -> S
       "SH" -> SH
       "T" -> T
       "TH" -> TH
-      "UH" -> UH
-      "UH0" -> UH0
-      "UH1" -> UH1
-      "UH2" -> UH2
-      "UW" -> UW
-      "UW0" -> UW0
-      "UW1" -> UW1
-      "UW2" -> UW2
+      "UH" -> UH EmpNone
+      "UH0" -> UH Emp0
+      "UH1" -> UH Emp1
+      "UH2" -> UH Emp2
+      "UW" -> UW EmpNone
+      "UW0" -> UW Emp0
+      "UW1" -> UW Emp1
+      "UW2" -> UW Emp2
       "V" -> V
       "W" -> W
       "Y" -> Y
